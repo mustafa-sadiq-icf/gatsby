@@ -687,12 +687,16 @@ ${JSON.stringify(webhookBody, null, 4)}`
               urlPath
             )
 
+            const newUrlTranslations = new URL(joinedUrl);
+            newUrl.searchParams.set('filter[langcode]', currentLanguage);
+            console.log('Hacky fix alert: manipulating joinedUrl for translations', newUrl.href);
+
             const renamedEnabledLanguages =
               getOptions().languageConfig.renamedEnabledLanguages
             const filterByLanguages =
               getOptions().languageConfig.filterByLanguages
             await getNext(
-              joinedUrl,
+              newUrlTranslations,
               currentLanguage,
               filterByLanguages,
               renamedEnabledLanguages
